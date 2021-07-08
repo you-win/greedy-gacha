@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/GamblingHubBackground.png" type="Texture" id=1]
+[ext_resource path="res://minigames/hammer-in-the-nail/hammer_in_the_nail.gd" type="Script" id=2]
+[ext_resource path="res://minigames/hammer-in-the-nail/entities/hammer.tscn" type="PackedScene" id=3]
+[ext_resource path="res://minigames/hammer-in-the-nail/entities/nail.tscn" type="PackedScene" id=5]
+
+[node name="HammerInTheNail" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Background" type="Sprite" parent="."]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 1 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+
+[node name="Hammer" parent="." instance=ExtResource( 3 )]
+
+[node name="Nails" type="Node2D" parent="."]
+
+[node name="Nail" parent="Nails" instance=ExtResource( 5 )]
+position = Vector2( 544.657, 321.086 )
+
+[node name="Nail2" parent="Nails" instance=ExtResource( 5 )]
+position = Vector2( 447.399, -55.2357 )
+
+[node name="Nail3" parent="Nails" instance=ExtResource( 5 )]
+position = Vector2( -194.773, 321.086 )
+
+[node name="Nail4" parent="Nails" instance=ExtResource( 5 )]
+position = Vector2( -515.859, 1.37823 )

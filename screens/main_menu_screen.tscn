@@ -1,0 +1,68 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://screens/main_menu_screen.gd" type="Script" id=1]
+
+[node name="MainMenuScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.0784314, 0.0509804, 0.282353, 1 )
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_top = 0.5
+anchor_right = 0.4
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = -10.0
+margin_bottom = -10.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer"]
+margin_right = 620.0
+margin_bottom = 430.0
+color = Color( 0, 0, 0, 0.2 )
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+margin_right = 620.0
+margin_bottom = 430.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 610.0
+margin_bottom = 420.0
+custom_constants/separation = 10
+
+[node name="Play" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
+margin_right = 600.0
+margin_bottom = 130.0
+size_flags_vertical = 3
+text = "Play"
+
+[node name="Options" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
+margin_top = 140.0
+margin_right = 600.0
+margin_bottom = 270.0
+size_flags_vertical = 3
+text = "Options"
+
+[node name="Quit" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
+margin_top = 280.0
+margin_right = 600.0
+margin_bottom = 410.0
+size_flags_vertical = 3
+text = "Quit"
