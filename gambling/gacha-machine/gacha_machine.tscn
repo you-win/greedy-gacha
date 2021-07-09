@@ -7,7 +7,7 @@
 [ext_resource path="res://gambling/gacha-machine/gacha_machine.gd" type="Script" id=5]
 [ext_resource path="res://gambling/gacha-machine/capsule.tscn" type="PackedScene" id=6]
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=1]
 resource_name = "Rest"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Machine/Handle:frame")
@@ -58,7 +58,7 @@ tracks/3/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=2]
 resource_name = "Spin"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Machine/Handle:frame")
@@ -109,15 +109,15 @@ tracks/3/keys = {
 "values": [ 0.0, 9.83711, -15.0, 0.0 ]
 }
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 217.96, 10 )
 
-[sub_resource type="AtlasTexture" id=1]
+[sub_resource type="AtlasTexture" id=4]
 flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 11.3675, 27.1606, 724.859, 243.847 )
 
-[sub_resource type="StyleBoxFlat" id=3]
+[sub_resource type="StyleBoxFlat" id=5]
 content_margin_left = 10.0
 content_margin_right = 10.0
 content_margin_top = 10.0
@@ -132,7 +132,9 @@ corner_radius_bottom_left = 5
 script = ExtResource( 5 )
 current_coin_label_path = NodePath("GachaOptions/VBoxContainer/CurrentCoinCounter/Value")
 probabilities_label_path = NodePath("GachaOptions/VBoxContainer/ProbabilityContainer/Value")
-coin_input_path = NodePath("GachaOptions/VBoxContainer/CoinContainer/Value")
+coin_input_path = NodePath("GachaOptions/VBoxContainer/CoinContainer/HBoxContainer/Value")
+coin_minus_path = NodePath("GachaOptions/VBoxContainer/CoinContainer/HBoxContainer/Minus")
+coin_plus_path = NodePath("GachaOptions/VBoxContainer/CoinContainer/HBoxContainer/Plus")
 spin_button_path = NodePath("GachaOptions/VBoxContainer/Button")
 
 [node name="Background" type="Sprite" parent="."]
@@ -144,8 +146,8 @@ texture = ExtResource( 1 )
 current = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Rest = SubResource( 4 )
-anims/Spin = SubResource( 5 )
+anims/Rest = SubResource( 1 )
+anims/Spin = SubResource( 2 )
 
 [node name="Machine" type="Node2D" parent="."]
 position = Vector2( -371.676, 0 )
@@ -177,31 +179,31 @@ texture = ExtResource( 2 )
 position = Vector2( 0, -105.946 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Machine/Cylinder/Top"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="Bottom" type="StaticBody2D" parent="Machine/Cylinder"]
 position = Vector2( 0, 102.768 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Machine/Cylinder/Bottom"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="Right" type="StaticBody2D" parent="Machine/Cylinder"]
 position = Vector2( 204.476, -1.05946 )
 rotation = -1.57079
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Machine/Cylinder/Right"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="Left" type="StaticBody2D" parent="Machine/Cylinder"]
 position = Vector2( -202.357, 2.11894 )
 rotation = -1.57079
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Machine/Cylinder/Left"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="Handle" type="Sprite" parent="Machine"]
 position = Vector2( -34.3883, 72.0741 )
-texture = SubResource( 1 )
+texture = SubResource( 4 )
 offset = Vector2( -3.086, -14.553 )
 hframes = 3
 
@@ -210,7 +212,7 @@ margin_left = 72.0
 margin_top = -362.0
 margin_right = 609.0
 margin_bottom = -21.0
-custom_styles/panel = SubResource( 3 )
+custom_styles/panel = SubResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -276,12 +278,36 @@ margin_bottom = 19.0
 size_flags_horizontal = 3
 text = "Coins to spend:"
 
-[node name="Value" type="LineEdit" parent="GachaOptions/VBoxContainer/CoinContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="GachaOptions/VBoxContainer/CoinContainer"]
 margin_left = 260.0
 margin_right = 517.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
-text = "0"
+
+[node name="Value" type="LineEdit" parent="GachaOptions/VBoxContainer/CoinContainer/HBoxContainer"]
+margin_right = 124.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+text = "1"
+
+[node name="Minus" type="Button" parent="GachaOptions/VBoxContainer/CoinContainer/HBoxContainer"]
+margin_left = 128.0
+margin_right = 190.0
+margin_bottom = 24.0
+focus_mode = 0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.25
+text = "-"
+
+[node name="Plus" type="Button" parent="GachaOptions/VBoxContainer/CoinContainer/HBoxContainer"]
+margin_left = 194.0
+margin_right = 257.0
+margin_bottom = 24.0
+focus_mode = 0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.25
+text = "+"
 
 [node name="Button" type="Button" parent="GachaOptions/VBoxContainer"]
 margin_top = 106.0

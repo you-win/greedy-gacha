@@ -5,11 +5,15 @@ const BasePrize: Resource = preload("res://gambling/gacha-machine/base_prize.tsc
 export var current_coin_label_path: NodePath
 export var probabilities_label_path: NodePath
 export var coin_input_path: NodePath
+export var coin_minus_path: NodePath
+export var coin_plus_path: NodePath
 export var spin_button_path: NodePath
 
 onready var current_coin_label: Label = get_node(current_coin_label_path)
 onready var probabilities_label: Label = get_node(probabilities_label_path)
 onready var coin_input: LineEdit = get_node(coin_input_path)
+onready var coin_minus: Button = get_node(coin_minus_path)
+onready var coin_plus: Button = get_node(coin_plus_path)
 onready var spin_button: Button = get_node(spin_button_path)
 
 onready var machine: Node2D = $Machine
@@ -38,6 +42,8 @@ func _ready() -> void:
 	current_coin_label.text = str(GameManager.player_data.coins)
 	
 	coin_input.connect("text_changed", self, "_on_coin_input_changed")
+	coin_minus.connect("pressed", self, "_on_coin_minus")
+	coin_plus.connect("pressed", self, "_on_coin_plus")
 	spin_button.connect("pressed", self, "_on_spin")
 	
 	anim_player.connect("animation_finished", self, "_on_spin_complete")
@@ -49,7 +55,26 @@ func _ready() -> void:
 
 func _on_coin_input_changed(text: String) -> void:
 	if text.is_valid_integer():
+		# TODO recalculate probability
 		pass
+
+func _on_coin_minus() -> void:
+	if coin_input.text.is_valid_integer():
+		var new_value := int(coin_input.text) - 1
+		if new_value < 0:
+			new_value = 0
+		coin_input.text = str(new_value)
+	else:
+		coin_input.text = str(1)
+
+func _on_coin_plus() -> void:
+	if coin_input.text.is_valid_integer():
+		var new_value := int(coin_input.text) + 1
+		if new_value > GameManager.player_data.coins:
+			new_value = GameManager.player_data.coins
+		coin_input.text = str(new_value)
+	else:
+		coin_input.text = str(1)
 
 func _on_spin() -> void:
 	var coins_to_spend: String = coin_input.text

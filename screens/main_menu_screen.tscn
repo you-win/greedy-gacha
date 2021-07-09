@@ -1,6 +1,17 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://screens/main_menu_screen.gd" type="Script" id=1]
+
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+bg_color = Color( 0, 0, 0, 0.270588 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [node name="MainMenuScreen" type="Control"]
 anchor_right = 1.0
@@ -27,18 +38,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ColorRect" type="ColorRect" parent="MarginContainer"]
+[node name="MarginContainer" type="PanelContainer" parent="MarginContainer"]
 margin_right = 620.0
 margin_bottom = 430.0
-color = Color( 0, 0, 0, 0.2 )
-
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
-margin_right = 620.0
-margin_bottom = 430.0
-custom_constants/margin_right = 10
-custom_constants/margin_top = 10
-custom_constants/margin_left = 10
-custom_constants/margin_bottom = 10
+custom_styles/panel = SubResource( 1 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer"]
 margin_left = 10.0
@@ -50,6 +53,7 @@ custom_constants/separation = 10
 [node name="Play" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
 margin_right = 600.0
 margin_bottom = 130.0
+focus_mode = 0
 size_flags_vertical = 3
 text = "Play"
 
@@ -57,6 +61,7 @@ text = "Play"
 margin_top = 140.0
 margin_right = 600.0
 margin_bottom = 270.0
+focus_mode = 0
 size_flags_vertical = 3
 text = "Options"
 
@@ -64,5 +69,6 @@ text = "Options"
 margin_top = 280.0
 margin_right = 600.0
 margin_bottom = 410.0
+focus_mode = 0
 size_flags_vertical = 3
 text = "Quit"
