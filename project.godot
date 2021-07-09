@@ -9,12 +9,24 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node2D",
+"class": "BaseGamblingScreen",
+"language": "GDScript",
+"path": "res://gambling/base_gambling_screen.gd"
+}, {
+"base": "Node2D",
+"class": "BaseMinigame",
+"language": "GDScript",
+"path": "res://minigames/base_minigame.gd"
+}, {
 "base": "Reference",
 "class": "SaveDataUtil",
 "language": "GDScript",
 "path": "res://utils/save_data_util.gd"
 } ]
 _global_script_class_icons={
+"BaseGamblingScreen": "",
+"BaseMinigame": "",
 "SaveDataUtil": ""
 }
 
@@ -33,6 +45,8 @@ MinigameManager="*res://minigames/minigame_manager.gd"
 
 window/size/width=1600
 window/size/height=900
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
 
 [input]
 

@@ -1,51 +1,43 @@
-extends Area2D
+extends Node2D
 
-signal hammered_in(pos)
+const COIN_SOUNDS_PATH: String = "res://assets/sfx/coin%s.tscn"
 
-const EXTRA_HIT_MODULO: int = 4
-
-onready var sprite: Sprite = $Sprite
 onready var anim_player: AnimationPlayer = $AnimationPlayer
+onready var tween: Tween = $Tween
 
-var can_hammer: bool = false
+var coin_sound: AudioStreamPlayer
 
-var hit_counter: int = 0
-var extra_counter: int = 0
+var spawn_position: Vector2
 
 ###############################################################################
 # Builtin functions                                                           #
 ###############################################################################
 
 func _ready() -> void:
-	self.connect("mouse_entered", self, "_on_mouse_entered")
-	self.connect("mouse_exited", self, "_on_mouse_exited")
+	anim_player.connect("animation_finished", self, "_on_animation_finished")
+	anim_player.play("Spin")
 	
-	anim_player.play("Rest")
-
-func _process(delta: float) -> void:
-	if (can_hammer and Input.is_action_just_pressed("primary_action")):
-		hit_counter += 1
-		match hit_counter:
-			1:
-				anim_player.play("FirstHit")
-			2:
-				anim_player.play("SecondHit")
-				emit_signal("hammered_in", self.global_position)
-			_:
-				sprite.flip_h = not sprite.flip_h
-				extra_counter += 1
-				if extra_counter % EXTRA_HIT_MODULO == 0:
-					emit_signal("hammered_in", self.global_position)
+	tween.connect("tween_all_completed", self, "_on_tween_finished")
+	tween.interpolate_property(self, "modulate", Color.white, Color.transparent, 0.5)
+	
+	self.global_position = spawn_position
+	
+	coin_sound = load(COIN_SOUNDS_PATH % GameManager.rng.randi_range(0, 2)).instance()
+	call_deferred("add_child", coin_sound)
+	
+	yield(coin_sound, "ready")
+	
+	coin_sound.play(0)
 
 ###############################################################################
 # Connections                                                                 #
 ###############################################################################
 
-func _on_mouse_entered() -> void:
-	can_hammer = true
+func _on_animation_finished(_anim_name: String) -> void:
+	tween.start()
 
-func _on_mouse_exited() -> void:
-	can_hammer = false
+func _on_tween_finished() -> void:
+	self.queue_free()
 
 ###############################################################################
 # Private functions                                                           #

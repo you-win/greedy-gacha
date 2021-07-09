@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://gambling/gacha-machine/assets/prizes/DebugItem.png" type="Texture" id=1]
+[ext_resource path="res://gambling/gacha-machine/base_prize.gd" type="Script" id=2]
+
+[node name="BasePrize" type="Sprite"]
+texture = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -10,12 +10,13 @@ var rng: RandomNumberGenerator
 
 var main: CanvasLayer
 
+class PlayerData:
+	var player_name: String = "changeme"
+	var coins: int = 0
+	var minigames_unlocked: int = 0
+
 # TODO testing only
-var player_data: Dictionary = {
-	"name": "team_youwin",
-	"points": 0,
-	"minigames_unlocked": 0
-}
+var player_data := PlayerData.new()
 
 ###############################################################################
 # Builtin functions                                                           #

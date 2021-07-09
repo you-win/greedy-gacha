@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://gambling/gacha-machine/assets/Capsule.png" type="Texture" id=1]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 39.8739
+
+[node name="Capsule" type="RigidBody2D"]
+gravity_scale = 5.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )

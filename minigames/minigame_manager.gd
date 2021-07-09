@@ -38,7 +38,7 @@ func load_next_minigame(minigame_name: String = "") -> void:
 	if minigame_name.empty():
 		# No more minigames to play, go to gamble
 		if possible_minigames.empty():
-			GameManager.main.change_screen("res://screens/gambling_hub_screen.tscn")
+			GameManager.main.change_screen("res://gambling/gambling_hub_screen.tscn")
 		else:
 			# randi_range is inclusive
 			var random_index: int = GameManager.rng.randi_range(0, possible_minigames.size() - 1)
