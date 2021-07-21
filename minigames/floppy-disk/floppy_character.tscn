@@ -11,7 +11,9 @@ flags = 4
 atlas = ExtResource( 1 )
 region = Rect2( 44.6502, 27.4262, 729.563, 377.732 )
 
-[node name="FloppyCharacter" type="KinematicBody2D"]
+[node name="FloppyCharacter" type="KinematicBody2D" groups=[
+"Player",
+]]
 scale = Vector2( 0.5, 0.5 )
 script = ExtResource( 2 )
 

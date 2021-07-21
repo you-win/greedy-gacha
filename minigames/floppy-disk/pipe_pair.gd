@@ -1,37 +1,23 @@
-extends KinematicBody2D
+extends Node2D
 
-signal killed
+signal scored(position)
 
-const GRAVITY: float = 175.0
-const JUMP: float = 1500.0
-const SLERP_AMOUNT: float = 0.5
-
-var current_velocity: Vector2 = Vector2.ZERO
-var input_velocity: Vector2 = Vector2.ZERO
+onready var scoring_area: Area2D = $ScoringArea
 
 ###############################################################################
 # Builtin functions                                                           #
 ###############################################################################
 
 func _ready() -> void:
-	pass
-
-func _physics_process(delta: float) -> void:
-	if Input.is_action_just_pressed("primary_action"):
-		current_velocity.y = -JUMP
-	else:
-		current_velocity.y = lerp(current_velocity.y, GRAVITY, 0.5)
-	
-	current_velocity *= delta * 100
-	
-	current_velocity = move_and_slide(current_velocity, Vector2.UP)
-	
-	if self.get_slide_count() > 0:
-		emit_signal("killed")
+	scoring_area.connect("body_entered", self, "_on_body_entered")
 
 ###############################################################################
 # Connections                                                                 #
 ###############################################################################
+
+func _on_body_entered(body: Node) -> void:
+	if body.is_in_group("Player"):
+		emit_signal("scored", self.global_position)
 
 ###############################################################################
 # Private functions                                                           #

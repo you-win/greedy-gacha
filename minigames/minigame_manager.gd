@@ -3,8 +3,9 @@ extends Node
 signal minigame_completed(data)
 
 const MINIGAMES: Dictionary = {
-	"TEST_GAME": "res://minigames/hammer-in-the-nail/hammer_in_the_nail.tscn",
-	"TEST_GAME2": "res://minigames/hammer-in-the-nail/hammer_in_the_nail.tscn"
+	"HAMMER_IN_THE_NAIL": "res://minigames/hammer-in-the-nail/hammer_in_the_nail.tscn",
+	"FLOPPY_DISK": "res://minigames/floppy-disk/floppy_disk.tscn",
+	"DODGE_THE_BEANS": "res://minigames/dodge-the-beans/dodge_the_beans.tscn"
 }
 
 # String
