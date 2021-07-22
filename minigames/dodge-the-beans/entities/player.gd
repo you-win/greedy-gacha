@@ -1,34 +1,22 @@
-extends BaseMinigame
+extends Area2D
 
-onready var hammer: Node2D = $Hammer
-
-var total_nails: int = 0
-var total_nails_completed: int = 0
+onready var collision_shape: CollisionShape2D = $CollisionShape2D
+onready var anim_player: AnimationPlayer = $AnimationPlayer
 
 ###############################################################################
 # Builtin functions                                                           #
 ###############################################################################
 
 func _ready() -> void:
-	_adjust_self_position_in_viewport()
-	_setup_timer(12.0)
-	
-	for c in $Nails.get_children():
-		c.connect("hammered_in", self, "_on_hammered_in")
-		total_nails += 1
-
-func _process(delta: float) -> void:
-	hammer.global_position = get_global_mouse_position()
+	anim_player.connect("animation_finished", self, "_anim_finished")
 
 ###############################################################################
 # Connections                                                                 #
 ###############################################################################
 
-func _on_hammered_in(pos: Vector2) -> void:
-	total_nails_completed += 1
-	
-	_spawn_coin_at(pos)
-	GameManager.player_data.coins += 1
+func _anim_finished(anim_name: String) -> void:
+	if anim_name == "Flash":
+		set_deferred("monitoring", true)
 
 ###############################################################################
 # Private functions                                                           #
@@ -38,4 +26,6 @@ func _on_hammered_in(pos: Vector2) -> void:
 # Public functions                                                            #
 ###############################################################################
 
-
+func hit_bean() -> void:
+	anim_player.play("Flash")
+	set_deferred("monitoring", false)

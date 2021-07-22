@@ -1,34 +1,28 @@
-extends BaseMinigame
+extends KinematicBody2D
 
-onready var hammer: Node2D = $Hammer
+const SPEED: float = 100.0
 
-var total_nails: int = 0
-var total_nails_completed: int = 0
+var lifetime: float = 10.0
+
+var movement_vector: Vector2
 
 ###############################################################################
 # Builtin functions                                                           #
 ###############################################################################
 
 func _ready() -> void:
-	_adjust_self_position_in_viewport()
-	_setup_timer(12.0)
-	
-	for c in $Nails.get_children():
-		c.connect("hammered_in", self, "_on_hammered_in")
-		total_nails += 1
+	movement_vector *= SPEED
 
-func _process(delta: float) -> void:
-	hammer.global_position = get_global_mouse_position()
+func _physics_process(delta: float) -> void:
+	lifetime -= delta
+	if lifetime <= 0:
+		self.queue_free()
+	
+	move_and_slide(movement_vector * delta * 100)
 
 ###############################################################################
 # Connections                                                                 #
 ###############################################################################
-
-func _on_hammered_in(pos: Vector2) -> void:
-	total_nails_completed += 1
-	
-	_spawn_coin_at(pos)
-	GameManager.player_data.coins += 1
 
 ###############################################################################
 # Private functions                                                           #

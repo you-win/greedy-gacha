@@ -24,9 +24,7 @@ var current_score_combo: float = 1.0
 
 func _ready() -> void:
 	_adjust_self_position_in_viewport()
-	_setup_timer(10.0)
-	
-	_spawn_pipe()
+	_setup_timer(12.0)
 	
 	screen_extents.x = GameManager.main.viewport.size.x / 2
 	screen_extents.y = (GameManager.main.viewport.size.y / 2)
@@ -38,7 +36,9 @@ func _ready() -> void:
 	pipe_timer.connect("timeout", self, "_on_pipe_timer_timeout")
 	gravity_delay_timer.connect("timeout", self, "_on_gravity_delay_timer_timeout")
 	
+	_spawn_pipe()
 	pipe_timer.start(PIPE_SPAWN_TIME)
+	
 	gravity_delay_timer.start(GRAVITY_DELAY_TIME)
 
 func _physics_process(delta) -> void:
@@ -61,7 +61,9 @@ func _physics_process(delta) -> void:
 
 func _on_killed() -> void:
 	_teardown_game()
+	
 	_spawn_pipe()
+	pipe_timer.start(PIPE_SPAWN_TIME)
 
 func _on_pipe_timer_timeout() -> void:
 	_spawn_pipe()

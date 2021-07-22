@@ -1,13 +1,13 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://minigames/dodge-the-beans/assets/Bean1.png" type="Texture" id=1]
+[ext_resource path="res://minigames/dodge-the-beans/assets/Okay.png" type="Texture" id=1]
 [ext_resource path="res://minigames/dodge-the-beans/entities/spawnable_script.gd" type="Script" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 114.809
+radius = 199.647
 
-[node name="Bean1" type="KinematicBody2D" groups=[
-"Bean",
+[node name="Okay" type="KinematicBody2D" groups=[
+"Score",
 ]]
 collision_mask = 0
 script = ExtResource( 2 )
@@ -15,8 +15,6 @@ script = ExtResource( 2 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
-[node name="Sprite" type="Sprite" parent="." groups=[
-"Bean",
-]]
-position = Vector2( -13.4543, -28.5905 )
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0, -14.2705 )
 texture = ExtResource( 1 )
